@@ -1,0 +1,50 @@
+---
+- name: install docker
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: install base soft
+      ansible.builtin.apt:
+        name: "{{ soft }}"
+        state: present
+        update_cache: true
+
+    - name: add gpg key
+      ansible.builtin.apt_key:
+        url: https://download.docker.com/linux/{{ ansible_facts.distribution | lower }}/gpg
+        state: present
+        validate_certs: no
+
+    - name: add repo
+      ansible.builtin.apt_repository:
+        repo:  deb https://download.docker.com/linux/{{ ansible_facts.distribution | lower }} {{ ansible_facts.distribution_release }} stable
+        state: present
+          
+    - name: install docker soft
+      ansible.builtin.apt:
+        name: "{{ docker_soft }}"
+        state: latest
+        update_cache: true
+      notify: service started
+    
+    - name: modify usergroup
+      ansible.builtin.user:
+        name: vlad
+        groups: "{{ item.groups }}"
+        state:  present
+      loop: "{{ user }}"
+   
+        
+   
+  handlers:
+    - name: service started
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: true
+      loop: "{{ service_name }}"   
+
+
+        
+
+      

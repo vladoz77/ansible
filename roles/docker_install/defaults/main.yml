@@ -1,0 +1,7 @@
+---
+# defaults file for docker_install
+soft:
+  - docker-ce
+  - docker-ce-cli
+service_name:
+  - docker

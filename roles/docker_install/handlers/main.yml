@@ -1,0 +1,8 @@
+---
+# handlers file for docker_install
+- name: service started
+  ansible.builtin.service:
+      name: "{{ item }}"
+      state: started
+      enabled: true
+  loop: "{{ service_name }}"   

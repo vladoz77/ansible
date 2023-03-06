@@ -1,0 +1,10 @@
+---
+- name: optimaze sudo for ssh
+  hosts: all
+  
+  tasks:
+    - lineinfile:
+        line: 'Defaults !requiretty'
+        validate: /usr/sbin/visudo -cf %s
+        path: /etc/sudoers
+        state: present

@@ -1,0 +1,12 @@
+---
+- name: fileglob
+  hosts: rocky
+  tasks:
+    - ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ query('fileglob', '~/.*') }}"
+
+    - ansible.builtin.copy:
+        src: "{{ item }}"
+        dest: "/tmp"
+      loop: "{{ query('fileglob', '~/.*') }}"

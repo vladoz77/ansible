@@ -1,0 +1,21 @@
+{
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/playbook": [
+            "file:///home/vlad/ansible.d/optimize_sudo.yaml",
+            "file:///home/vlad/ansible.d/find.yaml",
+            "file:///home/vlad/ansible.d/setup.yaml",
+            "file:///home/vlad/ansible.d/filter_test.yaml",
+            "file:///home/vlad/ansible.d/firewalld.yaml",
+            "file:///home/vlad/ansible.d/test.yaml",
+            "file:///home/vlad/ansible.d/lookup.yaml",
+            "file:///home/vlad/ansible.d/useradd.yaml",
+            "file:///home/vlad/ansible.d/useradd_from_file.yaml",
+            "file:///home/vlad/ansible.d/remove_user.yaml",
+            "file:///home/vlad/ansible.d/fileglob.yaml",
+            "file:///home/vlad/ansible.d/create_user_local.yaml",
+            "file:///home/vlad/ansible.d/ansible_fact.yaml",
+            "file:///home/vlad/ansible.d/docker-install.yaml"
+        ],
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///home/vlad/ansible.d/roles/docker_install/tasks/main.yml"
+    }
+}

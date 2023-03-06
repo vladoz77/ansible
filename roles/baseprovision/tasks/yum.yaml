@@ -1,0 +1,11 @@
+---
+- name: apdate package
+  ansible.builtin.yum:
+      name: "*"
+      state: latest
+
+- name: install soft fedora
+  ansible.builtin.yum:
+      name: "{{ soft }}"
+      state: present
+  notify: start_service

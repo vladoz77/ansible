@@ -1,0 +1,24 @@
+#list users
+user:
+  - name: vlad
+    password: "8231"
+    groups: 
+     - sudo
+     - docker
+
+#soft
+soft:
+  - curl
+  - nmap
+  - ca-certificates
+  - gnupg
+  - lsb-release
+docker_soft:
+  - docker-ce
+  - docker-ce-cli
+  
+  
+ 
+#service
+service_name:
+  - docker

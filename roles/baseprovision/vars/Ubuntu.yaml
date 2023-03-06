@@ -1,0 +1,18 @@
+#list users
+user:
+  - name: vlad
+    password: "8231"
+    groups: 
+     - sudo
+     - syslog
+     - tcpdump
+
+#soft
+soft:
+  - curl
+  - nmap
+  - apache2
+
+#service
+service_name:
+  - apache2

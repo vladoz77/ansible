@@ -1,0 +1,19 @@
+#list users 
+user:
+  - name: vlad
+    password: "8231"
+    groups: 
+     - wheel
+     - vagrant
+     
+
+#list soft
+soft:
+  - curl
+  - nmap
+  - httpd
+
+
+#service
+service_name:
+  - httpd

@@ -1,0 +1,14 @@
+---
+- name: setup
+  hosts: ubuntu
+  become: true
+  vars:
+    user: alex
+  tasks: 
+    - name: Get  user info
+      ansible.builtin.getent:
+        database: group
+        split: ':'
+    - ansible.builtin.debug:
+        var: getent_group
+        

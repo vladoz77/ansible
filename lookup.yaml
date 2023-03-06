@@ -1,0 +1,9 @@
+---
+- name: lookup test
+  hosts: rocky
+  become: true
+  tasks:
+    - ansible.builtin.debug:
+        msg: "{{ item }}"
+      loop: "{{ query('lines', 'cat /etc/hosts' ) }}"
+          

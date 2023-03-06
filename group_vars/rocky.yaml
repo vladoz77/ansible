@@ -1,0 +1,29 @@
+#list users 
+user:
+  - name: alex
+    groups: wheel
+
+  - name: oleg
+    groups: 
+      - wheel   
+
+#list soft
+soft:
+  - curl
+  - nmap
+  
+
+docker_soft:
+  - docker-ce 
+  - docker-ce-cli
+  - containerd.io
+
+#service
+service_name:
+  - httpd
+
+#firewall rulle
+rule:
+  - service: https
+  - service: ftp
+    state: disabled

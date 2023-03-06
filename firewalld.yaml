@@ -1,0 +1,20 @@
+---
+- name: setup firewall with default
+  hosts: rocky
+  become: true
+  tasks:
+    - name: enable default_rule
+      ansible.posix.firewalld:
+        service: "{{item.service}}"
+        zone: "{{ item.zone | default(omit) }}"
+        permanent: true
+        state: "{{ item.state | default('enabled') }}"
+      loop: "{{ rule }}"
+      when: item.service is defined
+      notify: reload firewall
+  
+  handlers:
+    - name: reload firewall
+      ansible.builtin.service:
+        name: firewalld
+        state: reloaded

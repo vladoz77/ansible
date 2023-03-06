@@ -1,0 +1,13 @@
+---
+- name: remove user
+  hosts: rocky
+  become: true
+  tasks:
+    - name: remove user from file
+      ansible.builtin.user:
+        name: "{{ item }}"
+        state: absent
+        remove: true
+      loop: "{{ query('lines', 'cat ./user.txt' ) }}"
+
+    

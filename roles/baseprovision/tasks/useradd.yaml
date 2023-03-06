@@ -1,0 +1,16 @@
+- name: add user
+  ansible.builtin.user:
+      name: "{{ item.name }}"
+      password: "{{ item.password | password_hash('sha512') }}"
+      groups: "{{ item.groups }}"
+      shell: "{{ item.shell | default('/bin/bash')}}"
+      state: present
+  loop: "{{ user }}"    
+
+- name: add ssh key 
+  ansible.posix.authorized_key:
+      user: "{{ item.name }}"
+      state: present
+      key: "{{ lookup('file', '/home/{{ item.name }}/.ssh/id_rsa.pub') }}"
+  loop: "{{ user }}"
+  
