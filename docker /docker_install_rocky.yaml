@@ -1,0 +1,79 @@
+---
+- name: install docker
+  hosts: rocky
+  become: yes
+
+  tasks:
+    - name: install addition soft
+      ansible.builtin.yum:
+        name: "{{ soft }}"
+        state: present
+        update_cache: true
+    
+    - name: add repo
+      ansible.builtin.yum_repository:
+        name: docker-ce
+        description: Docker repository
+        baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
+        gpgkey: https://download.docker.com/linux/centos/gpg
+        gpgcheck: true
+        state: present
+        enabled: true        
+          
+    - name: install docker
+      ansible.builtin.yum:
+        name: "{{ docker_soft }}"
+        state: present        
+          
+    
+    - name: modify usergroup
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        groups: "{{ item.groups }}"
+        state:  present
+      loop: "{{ user }}"
+
+    - name: start docker service
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+  tags: docker_install 
+
+# - name: create containers
+#   hosts: ubuntu
+#   become: true
+#   tasks: 
+#     - name: create container in docker
+#       community.docker.docker_container:
+#         name: my_nginx
+#         image: nginx:latest
+#         state: started
+#         restart_policy: always
+#         ports:
+#           - 8888:80
+#         volumes:
+#           - /tmp/nginx/:/usr/share/nginx/html
+#     - name: list container
+#       ansible.builtin.shell:
+#         docker container ls
+#       register: cotainer_list
+
+#     - ansible.builtin.debug:
+#         var: cotainer_list.stdout
+
+#     - name: copy content
+#       ansible.builtin.copy:
+#         src: index.html
+#         dest: /tmp/nginx/
+        
+        
+#   tags: container_create
+   
+  
+
+
+        
+
+      

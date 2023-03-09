@@ -1,0 +1,22 @@
+---
+ - name: podman install
+   hosts: rocky
+   become: true
+   collections: containers.podman
+   tasks:
+     - name: install podman
+       ansible.builtin.yum:
+         name: "podman"
+         state: present
+         
+     - name: create containers
+       containers.podman.podman_container:
+         name: myhttpd
+         image: httpd
+         state: started
+         detach: true
+         restart_policy: always
+         ports:
+          - 8080:80
+         volume:
+          - /tmp/:/usr/local/apache2/htpdocs

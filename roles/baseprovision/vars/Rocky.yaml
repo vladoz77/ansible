@@ -4,16 +4,16 @@ user:
     password: "8231"
     groups: 
      - wheel
-     - vagrant
+     
      
 
 #list soft
 soft:
   - curl
   - nmap
-  - httpd
+  - nano
+  - yum-utils
+  - rsync
 
 
-#service
-service_name:
-  - httpd
+

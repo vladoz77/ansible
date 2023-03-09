@@ -6,3 +6,4 @@
     state: started
     enabled: true
   loop: "{{ service_name }}"
+  ignore_errors: true

@@ -23,18 +23,47 @@
     - name: install docker soft
       ansible.builtin.apt:
         name: "{{ docker_soft }}"
-        state: latest
+        state: present
         update_cache: true
       notify: service started
     
     - name: modify usergroup
       ansible.builtin.user:
-        name: vlad
+        name: "{{ item.name }}"
         groups: "{{ item.groups }}"
         state:  present
       loop: "{{ user }}"
-   
+  tags: docker_install 
+
+- name: create containers
+  hosts: ubuntu
+  become: true
+  tasks: 
+    - name: create container in docker
+      community.docker.docker_container:
+        name: my_nginx
+        image: nginx:latest
+        state: started
+        restart_policy: always
+        ports:
+          - 8888:80
+        volumes:
+          - /tmp/nginx/:/usr/share/nginx/html
+    - name: list container
+      ansible.builtin.shell:
+        docker container ls
+      register: cotainer_list
+
+    - ansible.builtin.debug:
+        var: cotainer_list.stdout
+
+    - name: copy content
+      ansible.builtin.copy:
+        src: index.html
+        dest: /tmp/nginx/
         
+        
+  tags: container_create
    
   handlers:
     - name: service started
@@ -43,6 +72,7 @@
         state: started
         enabled: true
       loop: "{{ service_name }}"   
+      ignore_errors: true
 
 
         

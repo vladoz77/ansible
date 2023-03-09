@@ -16,6 +16,7 @@ soft:
 docker_soft:
   - docker-ce
   - docker-ce-cli
+  - python3-docker
   
   
  

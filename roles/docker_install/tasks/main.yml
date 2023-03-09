@@ -1,8 +1,0 @@
----
-# tasks file for docker_install
-- name: os vars
-  include_vars: "{{ ansible_facts.distribution}}.yaml"
-
-- name: install docker for Ubuntu
-  ansible.builtin.import_tasks: docker_ubuntu.yaml
-  

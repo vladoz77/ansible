@@ -4,15 +4,13 @@ user:
     password: "8231"
     groups: 
      - sudo
-     - syslog
-     - tcpdump
+     
 
 #soft
 soft:
   - curl
   - nmap
-  - apache2
+  - rsync
 
 #service
-service_name:
-  - apache2
+

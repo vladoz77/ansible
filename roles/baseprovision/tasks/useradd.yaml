@@ -5,6 +5,7 @@
       groups: "{{ item.groups }}"
       shell: "{{ item.shell | default('/bin/bash')}}"
       state: present
+      update_password: on_create
   loop: "{{ user }}"    
 
 - name: add ssh key 
