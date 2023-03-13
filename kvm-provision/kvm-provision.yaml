@@ -1,0 +1,24 @@
+# ---
+# - name: kvm provision
+#   hosts: localhost
+#   become: true
+#   tasks:
+    - name: copy template image
+      ansible.builtin.copy:
+        src: /{{ libvirt_pool_dir }}/vm-template.qcow2
+        dest: /{{ libvirt_pool_dir }}/{{ item.name }}.qcow2
+      loop: "{{ vms }}"
+      
+    - name: configure image
+      ansible.builtin.shell:
+        virt-customize -a {{ libvirt_pool_dir }}/{{ item.name }}.qcow2 \
+        --hostname {{ item.name }}
+      loop: "{{ vms }}"
+
+        
+    - name: create vm
+      community.libvirt.virt:
+        name: "{{ item.name }}"
+        command: define
+        xml: "{{ lookup('template', './template/template-vm.xml.j2') }}"
+      loop: "{{ vms }}"

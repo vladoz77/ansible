@@ -1,0 +1,9 @@
+---
+libvirt_pool_dir: /var/lib/libvirt/images
+vms:
+  - name: vm1
+    memory: 1024
+    vcpu: 1
+    network: network
+
+  
