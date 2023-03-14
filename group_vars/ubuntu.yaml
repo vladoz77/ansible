@@ -13,6 +13,7 @@ soft:
   - ca-certificates
   - gnupg
   - lsb-release
+  - rsync
 docker_soft:
   - docker-ce
   - docker-ce-cli

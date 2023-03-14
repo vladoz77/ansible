@@ -1,7 +1,7 @@
 ---
 - name: ansible fact
-  hosts: rocky
+  hosts: all
   gather_facts: false
   tasks:
     - ansible.builtin.debug:
-        var: ansible_facts.ansible_distribution_major_version
+        msg: "{{ ansible_facts }}"
