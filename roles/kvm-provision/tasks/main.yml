@@ -1,0 +1,26 @@
+---
+# tasks file for kvm-provision
+- name: check vm
+  community.libvirt.virt:
+    command: list_vms
+  register: existing_vm
+
+
+- name: stop existing vm
+  community.libvirt.virt:
+    name: "{{ item }}"
+    state: shutdown
+  loop: "{{ existing_vm.list_vms }}"
+
+- name: create vm
+  ansible.builtin.include_tasks: create-vm.yaml
+  when: "'{{ item.name }}' not in existing_vm.list_vms"
+  loop: "{{ vms }}"
+
+- name: start vm
+  community.libvirt.virt:
+    name: "{{ item.name }}"
+    state: running
+  register: running_vm
+  loop: "{{ vms }}"
+  

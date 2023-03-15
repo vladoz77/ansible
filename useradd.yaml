@@ -3,7 +3,7 @@
   hosts: rocky
   become: true
   tasks:
-    - name: useradd
+    - name: add user
       vars:
         password: "{{ lookup('password', 'credentinals/' + item.name + 'lenghts=9') }}"
       
@@ -16,8 +16,6 @@
         state: present
       loop: "{{ user }}"
      
-    
-
     - name: add ssh key
       ansible.posix.authorized_key:
         user: "{{ item.name }}"

@@ -9,11 +9,29 @@
         command: list_vms
       register: existing_vm
       changed_when: no
+
+    # - ansible.builtin.debug:
+    #     var: existing_vm.list_vms
+
+    - name: get vm list
+      community.libvirt.virt:
+        name: "{{ item }}"
+        state: shutdown
+      loop: "{{ existing_vm.list_vms }}"
+ 
+      
+   
     
-    - name: vm define
-      ansible.builtin.include_tasks: kvm-provision.yaml
-      when: "'{{ item.name }}' not in existing_vm.list_vms"
-      loop: "{{ vms }}"
+    # - name: vm define
+    #   ansible.builtin.include_tasks: kvm-provision.yaml
+    #   when: "'{{ item.name }}' not in existing_vm.list_vms"
+    #   loop: "{{ vms }}"
+
+    # - name: start vm
+    #   community.libvirt.virt:
+    #     name: "{{ item.name }}"
+    #     state: running
+    #   loop: "{{ vms }}"
         
    
       
