@@ -1,0 +1,29 @@
+---
+- name: kvm provision
+  hosts: localhost
+  become: true
+  vars_files: vm-list.yaml
+  pre_tasks:
+    - name: check vm
+      community.libvirt.virt:
+         command: list_vms
+      register: existing_vm
+
+
+    - name: stop vm list
+      community.libvirt.virt:
+         name: "{{ item }}"
+         state: shutdown
+      loop: "{{ existing_vm.list_vms }}"
+
+  roles:
+    - role: kvm-provision
+      
+  
+  post_tasks:
+    - name: start vm
+      community.libvirt.virt:
+         name: "{{ item.name }}"
+         state: running
+      register: running_vm
+      loop: "{{ vms }}"

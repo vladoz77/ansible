@@ -1,42 +1,29 @@
-- ansible.builtin.shell:
-    ls /tmp/
-  register: check_template
-
-- name: download temlate image
-  ansible.builtin.get_url:
-    url: "{{ template_image_url }}"
-    dest: "/tmp/{{ temlate_image_name }}"
-  when: "'{{ temlate_image_name }}' not in check_template.stdout"
-
-- ansible.builtin.shell:
-    ls /{{ libvirt_pool_dir }}
-  register: check_image
-
-- name: copy template image
+---
+- name: copy {{ temlate_image_name }} to {{ libvirt_pool_dir }}
   ansible.builtin.copy:
     src: /tmp/{{ temlate_image_name }}
     dest: /{{ libvirt_pool_dir }}/{{ item.name }}.qcow2
     force: no
     remote_src: yes 
     mode: 0660
-  when: "'{{ item.name }}' not in check_image.stdout"
-  register: copy_res
+  register: copy_result
   loop: "{{ vms }}"
-      
-- name: configure image
+
+- name: customize temlate
   ansible.builtin.shell:
     virt-customize -a {{ libvirt_pool_dir }}/{{ item.name }}.qcow2 \
     --hostname {{ item.name }} \
     --root-password password:{{ vm_root_pass }} \
     --ssh-inject 'root:file:{{ ssh_key }}' \
-    --uninstall cloud-init --selinux-relabel
-  ignore_errors: true
-  loop: "{{ vms }}"
-  when: copy_res is changed
-        
-- name: create vm
+    --uninstall createcloud-init --selinux-relabel
+  when: copy_result is changed
+  loop: "{{ vms }}"    
+
+- name: define vm
   community.libvirt.virt:
     name: "{{ item.name }}"
     command: define
     xml: "{{ lookup('template', 'template-vm.xml.j2') }}"
+  when: "'{{ item.name }}' not in existing_vm.list_vms"
   loop: "{{ vms }}"
+  

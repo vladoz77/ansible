@@ -1,9 +1,0 @@
----
-- name: kvm provision
-  hosts: localhost
-  become: true
- 
-
-  roles:
-    - role: kvm-provision
-      

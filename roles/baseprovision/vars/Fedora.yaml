@@ -1,0 +1,16 @@
+#list users 
+user:
+  - name: vlad
+    password: "8231"
+    groups: 
+     - wheel
+     
+     
+
+#list soft
+soft:
+  - curl
+  - nmap
+  - nano
+  - yum-utils
+  - rsync

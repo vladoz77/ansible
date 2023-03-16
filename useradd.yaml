@@ -1,15 +1,15 @@
 ---
 - name: useradd
-  hosts: rocky
+  hosts: kvm
   become: true
   tasks:
     - name: add user
-      vars:
-        password: "{{ lookup('password', 'credentinals/' + item.name + 'lenghts=9') }}"
+      # vars:
+      #   password: "{{ lookup('password', 'credentinals/' + item.name + 'lenghts=9') }}"
       
       ansible.builtin.user:
         name: "{{ item.name }}"
-        password: "{{ password | password_hash('sha512')}}"
+        password: "{{ item.password | password_hash('sha512')}}"
         update_password: on_create
         groups: "{{ item.groups }}"
         shell: "{{ item.shell | default('/bin/bash') }}"

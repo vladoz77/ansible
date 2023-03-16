@@ -1,0 +1,11 @@
+---
+- name: check if {{ template_image_url }} exist in tmp folder
+  ansible.builtin.shell:
+    ls /tmp/
+  register: check_template
+
+- name: download {{ template_image_url }} image from site
+  ansible.builtin.get_url:
+    url: "{{ template_image_url }}"
+    dest: "/tmp/{{ temlate_image_name }}"
+  when: "'{{ temlate_image_name }}' not in check_template.stdout"

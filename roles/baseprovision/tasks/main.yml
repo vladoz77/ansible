@@ -9,7 +9,7 @@
 
 - name: add users to Rocky
   ansible.builtin.import_tasks: useradd.yaml  
-  when: ansible_facts['distribution'] == "Rocky"
+  when: ansible_facts['distribution'] == "Rocky" or ansible_facts['distribution'] == "Fedora"
 
 - name: install soft
   ansible.builtin.import_tasks: apt.yaml
@@ -17,4 +17,4 @@
           
 - name: install soft Rocky
   ansible.builtin.import_tasks: yum.yaml   
-  when: ansible_facts['distribution'] == "Rocky"
+  when: ansible_facts['distribution'] == "Rocky" or ansible_facts['distribution'] == "Fedora"

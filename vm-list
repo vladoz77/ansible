@@ -1,5 +1,3 @@
----
-# vars file for kvm-provision
 vms:
   - name: vm1
     memory: 1024
@@ -15,6 +13,13 @@ vms:
     memory: 1024
     vcpu: 1
     network: network
-    
-  
-  
+
+  - name: vm4
+    memory: 1024
+    vcpu: 1
+    network: network
+
+  - name: vm5
+    memory: 1024
+    vcpu: 1
+    network: network

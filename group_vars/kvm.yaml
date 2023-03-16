@@ -1,0 +1,23 @@
+user:
+  - name: vlad
+    groups: wheel
+    password: "8231"
+
+  
+
+#list soft
+soft:
+  - curl
+  - nmap
+  - yum-utils
+  - rsync
+
+docker_soft:
+  - docker-ce 
+  - docker-ce-cli
+  
+  
+
+#service
+service_name:
+  - docker

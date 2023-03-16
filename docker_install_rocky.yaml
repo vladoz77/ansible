@@ -1,6 +1,6 @@
 ---
 - name: install docker
-  hosts: rocky
+  hosts: kvm
   become: yes
 
   tasks:
@@ -14,8 +14,8 @@
       ansible.builtin.yum_repository:
         name: docker-ce
         description: Docker repository
-        baseurl: https://download.docker.com/linux/centos/$releasever/$basearch/stable
-        gpgkey: https://download.docker.com/linux/centos/gpg
+        baseurl: https://download.docker.com/linux/{{ ansible_facts.distribution | lower }}/$releasever/$basearch/stable
+        gpgkey: https://download.docker.com/linux/{{ ansible_facts.distribution | lower }}/gpg
         gpgcheck: true
         state: present
         enabled: true        
@@ -33,6 +33,10 @@
         state:  present
       loop: "{{ user }}"
 
+    - name: fix docker-sock
+      ansible.builtin.shell: chown {{ item.name }}:docker  /var/run/docker.sock
+      loop: "{{ user }}"
+      
     - name: start docker service
       ansible.builtin.service:
         name: docker
