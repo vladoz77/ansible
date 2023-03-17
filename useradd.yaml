@@ -2,6 +2,7 @@
 - name: useradd
   hosts: kvm
   become: true
+  # vars_files: user.yaml
   tasks:
     - name: add user
       # vars:

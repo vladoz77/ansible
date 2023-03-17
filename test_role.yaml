@@ -1,6 +1,6 @@
 ---
 - name: test role
-  hosts: kvm
+  hosts: all
   become: true 
   roles:
     - role: baseprovision

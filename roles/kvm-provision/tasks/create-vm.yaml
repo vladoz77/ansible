@@ -14,8 +14,8 @@
     virt-customize -a {{ libvirt_pool_dir }}/{{ item.name }}.qcow2 \
     --hostname {{ item.name }} \
     --root-password password:{{ vm_root_pass }} \
-    --uninstall createcloud-init --selinux-relabel
-  when: copy_result is changed
+    --ssh-inject 'root:file:{{ ssh_key }}' 
+  # when: copy_result is changed
   loop: "{{ vms }}"    
 
 - name: define vm

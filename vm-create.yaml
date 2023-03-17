@@ -18,6 +18,8 @@
 
   roles:
     - role: kvm-provision
+      vars:
+        ssh_key: ./id_rsa.pub 
     
       
   
