@@ -20,7 +20,6 @@
 
 - name: define vm
   community.libvirt.virt:
-    name: "{{ item.name }}"
     command: define
     xml: "{{ lookup('template', 'template-vm.xml.j2') }}"
   when: "'{{ item.name }}' not in existing_vm.list_vms"

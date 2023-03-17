@@ -8,7 +8,7 @@
       community.libvirt.virt:
          command: list_vms
       register: existing_vm
-
+      changed_when: no
 
     - name: stop vm list
       community.libvirt.virt:
