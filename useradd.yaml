@@ -1,8 +1,12 @@
 ---
 - name: useradd
-  hosts: kvm
+  hosts: all
   become: true
-  # vars_files: user.yaml
+  vars:
+    user:
+      - name: vlad
+        password: "8231"
+        groups: wheel
   tasks:
     - name: add user
       # vars:
@@ -21,5 +25,5 @@
       ansible.posix.authorized_key:
         user: "{{ item.name }}"
         state: present
-        key: "{{ lookup('file', './id_rsa.pub') }}"
+        key: "{{ lookup('file', '/home/vlad/.ssh/id_rsa.pub') }}"
       loop: "{{ user }}"

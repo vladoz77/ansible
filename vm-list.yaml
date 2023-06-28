@@ -1,25 +1,12 @@
 vms:
   - name: vm1
-    memory: 1024
+    memory: 512
     vcpu: 1
     network: network
    
   - name: vm2
-    memory: 1024
+    memory: 512
     vcpu: 1
     network: network
  
-  - name: vm3
-    memory: 1024
-    vcpu: 1
-    network: network
-
-  - name: vm4
-    memory: 1024
-    vcpu: 1
-    network: network
-
-  - name: vm5
-    memory: 1024
-    vcpu: 1
-    network: network
+  

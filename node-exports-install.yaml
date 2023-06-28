@@ -1,0 +1,53 @@
+---
+  - name: install node-export
+    hosts: localhost
+    connection: local
+    become: true
+    tasks:
+      - name: create group node-export
+        ansible.builtin.group:
+          name: "{{ username }}"
+          state: present
+          force: true
+      
+      - name: add user node-exporter
+        ansible.builtin.user:
+          name: "{{ username }}"
+          shell: /usr/bin/false
+          group: "{{ username }}"
+          state: present
+      
+      - name: download and exract node-exporter
+        ansible.builtin.unarchive:
+          src: "{{ node_exporter_url }}"
+          dest: "{{ install_path }}"
+          remote_src: yes
+          extra_opts: [--strip-components=1]
+          owner: "{{ username }}"
+          group: "{{ username }}"
+
+      - name: add systemd unit
+        ansible.builtin.template:
+          src: node_exporter.j2
+          dest: /etc/systemd/system/node_exporter.service
+
+      - name: enable systemd unit
+        ansible.builtin.systemd:
+          name: node_exporter
+          state: started
+          enabled: true
+          daemon_reload: true
+      
+      - name: add rule firewall
+        ansible.posix.firewalld:
+          port: 9100/tcp
+          permanent: true
+          state: enabled
+          
+
+
+
+
+   
+  
+          

@@ -14,7 +14,8 @@
             "file:///home/vlad/ansible.d/fileglob.yaml",
             "file:///home/vlad/ansible.d/create_user_local.yaml",
             "file:///home/vlad/ansible.d/ansible_fact.yaml",
-            "file:///home/vlad/ansible.d/docker-install.yaml"
+            "file:///home/vlad/ansible.d/docker-install.yaml",
+            "file:///home/vlad/ansible.d/node-exports-install.yaml"
         ],
         "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///home/vlad/ansible.d/roles/docker_install/tasks/main.yml"
     }

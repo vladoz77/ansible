@@ -1,7 +1,7 @@
 ---
 - name: copy {{ temlate_image_name }} to {{ libvirt_pool_dir }}
   ansible.builtin.copy:
-    src: /tmp/{{ temlate_image_name }}
+    src: /tmp/{{ temlate_image_name}}
     dest: /{{ libvirt_pool_dir }}/{{ item.name }}.qcow2
     force: no
     remote_src: yes 
@@ -14,7 +14,8 @@
     virt-customize -a {{ libvirt_pool_dir }}/{{ item.name }}.qcow2 \
     --hostname {{ item.name }} \
     --root-password password:{{ vm_root_pass }} \
-    --ssh-inject 'root:file:{{ ssh_key }}' 
+    --ssh-inject 'root:file:{{ ssh_key }}' \
+    --uninstall cloud-init --selinux-relabel
   # when: copy_result is changed
   loop: "{{ vms }}"    
 

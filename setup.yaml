@@ -1,6 +1,6 @@
 ---
 - name: setup
-  hosts: ubuntu
+  hosts: all
   become: true
   vars:
     user: alex

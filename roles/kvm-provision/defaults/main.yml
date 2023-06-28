@@ -4,4 +4,4 @@ libvirt_pool_dir: /var/lib/libvirt/images
 temlate_image_name: Fedora-Cloud-Base-34-1.2.x86_64.qcow2
 template_image_url: https://mirror.yandex.ru/fedora/linux/releases/34/Cloud/x86_64/images/{{ temlate_image_name}}
 vm_root_pass: "8231"
-# ssh_key: /home/vlad/ansible.d/roles/kvm-provision/files/id_rsa.pub
+ssh_key: /root/.ssh/id_rsa.pub

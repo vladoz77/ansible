@@ -1,0 +1,46 @@
+---
+# tasks file for docker_install
+---
+
+    # - name: install base soft
+    #   ansible.builtin.apt:
+    #     name: "{{ soft }}"
+    #     state: present
+    #     update_cache: true
+- name: include OS vars
+  include_vars: "{{ ansible_facts.distribution}}.yaml"
+
+- name: add gpg key
+  ansible.builtin.apt_key:
+    url: "{{ url }}"
+    state: present
+    validate_certs: no
+
+- name: add repo
+  ansible.builtin.apt_repository:
+    repo:  "{{ repo }}"
+    state: present
+          
+- name: install docker soft
+  ansible.builtin.apt:
+    name: "{{ docker_soft }}"
+    state: present
+    update_cache: true
+  notify: service started
+    
+- name: modify usergroup
+  ansible.builtin.user:
+    name: "{{ name }}"
+    groups: "{{ docker_group }}"
+    state:  present
+  
+
+
+   
+ 
+   
+
+
+        
+
+      

@@ -1,0 +1,12 @@
+[Unit]
+Description=Node Exporter
+After=network.target
+    
+[Service]
+User={{ username }}
+Group={{ username }}
+Type=simple
+ExecStart={{ install_path }}/node_exporter
+     
+[Install]
+WantedBy=multi-user.target
